@@ -1,70 +1,87 @@
-import { ExternalLink } from "lucide-react"; // Optional: adding an icon for the link
-import { useState , useEffect } from "react";
-import api  from "../services/api";
-const Projects = () => {
+import { ExternalLink, Code2, FolderGit2 } from "lucide-react";
+import { useState, useEffect } from "react";
+import api from "../services/api";
 
-    const [projects, setProjects] = useState(null);
-    
-      useEffect(() => {
-         const fetch = async ()=>{
-            const res = await api.get('/getAllProfiles');
-            // console.log(res.data.profile[0].projects);
-            
-            setProjects(res?.data?.profile[0]?.projects)
-            
-         }
-         fetch();
-      }, []);
-    
-      if (!projects) {
-        return (
-          <div className="flex justify-center items-center min-h-[200px]">
-            <p className="text-gray-500 animate-pulse font-medium">Loading projects...</p>
-          </div>
-        );
+const Projects = () => {
+  const [projects, setProjects] = useState(null);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await api.get('/getAllProfiles');
+        // Safely accessing projects from the first profile returned
+        const projectData = res?.data?.profile[0]?.projects || [];
+        setProjects(projectData);
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+        setProjects([]);
       }
-    
+    };
+    fetchProjects();
+  }, []);
+
+  if (!projects) {
+    return (
+      <div className="flex flex-col justify-center items-center min-h-[300px] gap-4">
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-500"></div>
+        <p className="text-slate-500 font-mono text-sm animate-pulse">Scanning Repositories...</p>
+      </div>
+    );
+  }
+
   return (
-    <div className="py-12 px-4 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-bold text-gray-900">Featured Projects</h2>
-        <span className="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-full uppercase">
-          {projects.length} Total
-        </span>
+    <div className="py-12 px-4 max-w-6xl mx-auto relative">
+      {/* Section Header */}
+      <div className="flex items-center justify-between mb-10 border-l-4 border-blue-600 pl-4">
+        <div>
+          <h2 className="text-3xl font-black text-white tracking-tight">Project Modules</h2>
+          <p className="text-slate-500 text-sm mt-1 font-mono uppercase tracking-widest">Active Deployments</p>
+        </div>
+        <div className="flex flex-col items-end">
+          <span className="px-3 py-1 bg-slate-800 border border-slate-700 text-blue-400 text-[10px] font-black rounded-md uppercase tracking-tighter">
+            {projects.length} Nodes Loaded
+          </span>
+        </div>
       </div>
 
       {projects.length === 0 ? (
-        <div className="text-center py-20 bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
-          <p className="text-gray-500 text-lg italic">No projects found in this collection.</p>
+        <div className="text-center py-20 bg-slate-900/50 rounded-3xl border-2 border-dashed border-slate-800">
+          <FolderGit2 className="mx-auto text-slate-700 mb-4" size={48} />
+          <p className="text-slate-500 text-lg font-medium italic">No projects detected in the current stream.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((p, i) => (
             <div 
               key={i} 
-              className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm "
+              className="group relative bg-slate-900/40 backdrop-blur-sm rounded-2xl border border-slate-800 p-8 hover:border-blue-500/50 hover:bg-slate-900/60 transition-all duration-300 shadow-xl"
             >
+              {/* Corner Accent */}
+              <div className="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+                <Code2 size={20} className="text-blue-500" />
+              </div>
+
               <div className="mb-4">
-                <h4 className="text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors">
+                <h4 className="text-xl font-bold text-white group-hover:text-blue-400 transition-colors">
                   {p.title}
                 </h4>
               </div>
               
-              <p className="text-gray-600 leading-relaxed mb-6 line-clamp-3">
+              <p className="text-slate-400 leading-relaxed mb-8 text-sm line-clamp-3 min-h-[60px]">
                 {p.description}
               </p>
 
-              <a 
-                href={p.links} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors"
-              >
-                View Project
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
+              <div className="pt-4 border-t border-slate-800/50">
+                <a 
+                  href={p.links} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.15em] text-blue-500 hover:text-white transition-all group/link"
+                >
+                  Execute Launch
+                  <ExternalLink size={14} className="group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
+                </a>
+              </div>
             </div>
           ))}
         </div>

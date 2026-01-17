@@ -23,7 +23,7 @@ export const searchProfile = async (query) => {
 };
 
 export const Logout = async ()=>{
-    const res = await api.post('/logout');
+    const res = await api.post('/auth/logout');
     return res.data;
 }
 
