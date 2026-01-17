@@ -28,10 +28,10 @@ const Profile = () => {
     // console.log(profile);
     // console.log(profile.User);
 
-    const handleLogout = ()=>{
-        Logout();
-        navigate('/login')
-    }
+    // const handleLogout = ()=>{
+    //     Logout();
+    //     navigate('/login')
+    // }
     
     
 
