@@ -12,7 +12,7 @@ const ProtectedRoutes = ({ children }) => {
 
    
     if (!isAuthenticated) {
-        console.log('isAuthenticated',isAuthenticated);
+        // console.log('isAuthenticated',isAuthenticated);
         
        
         return <Navigate to="/login" replace />;

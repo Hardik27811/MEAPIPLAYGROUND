@@ -1,18 +1,20 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { Lock, Mail, Terminal } from 'lucide-react'; // Optional icons
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const { checkAuth } = useAuth();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        await api.post('/auth/login',{email,password})
-        await checkAuth();
+      await api.post('/auth/login', { email, password });
+      await checkAuth();
       navigate('/');
     } catch (error) {
       alert(error.response?.data?.message || 'Login failed');
@@ -20,57 +22,86 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="max-w-md w-full bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
-          <p className="text-gray-500 mt-2">Please enter your details to sign in</p>
+    <div className="min-h-screen flex items-center justify-center bg-[#0f172a] px-4 selection:bg-blue-500/30">
+      {/* Decorative Background Elements */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px]" />
+      </div>
+
+      <div className="max-w-md w-full relative">
+        {/* Logo / Branding Area */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl shadow-xl shadow-blue-900/20 mb-4 transform -rotate-3">
+             <span className="text-white font-mono text-2xl font-bold">ME</span>
+          </div>
+          <h2 className="text-3xl font-extrabold text-white tracking-tight">Console Access</h2>
+          <p className="text-slate-400 mt-2 font-medium italic">Authenticate to manage your portfolio</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-5">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input
-              type="email"
-              placeholder="xyz@abc.com"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
+        {/* Login Card */}
+        <div className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 shadow-2xl">
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Identity</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-blue-500 transition-colors">
+                  <Mail size={18} />
+                </div>
+                <input
+                  type="email"
+                  placeholder="developer@me-api.com"
+                  className="w-full bg-slate-950/50 text-white pl-11 pr-4 py-3.5 rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              placeholder="••••••••"
-              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
+            <div>
+              <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Access Key</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-blue-500 transition-colors">
+                  <Lock size={18} />
+                </div>
+                <input
+                  type="password"
+                  placeholder="••••••••"
+                  className="w-full bg-slate-950/50 text-white pl-11 pr-4 py-3.5 rounded-xl border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-600"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
 
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl shadow-md shadow-indigo-100 transition-all active:scale-[0.98]"
-          >
-            Sign In
-          </button>
-        </form>
-
-        <div className="mt-8 text-center">
-          <p className="text-sm text-gray-600">
-            Don't have an account?{' '}
             <button
-              onClick={() => navigate('/register')}
-              className="text-indigo-600 font-bold hover:underline underline-offset-4"
+              type="submit"
+              className="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-blue-600/20 transition-all active:scale-[0.97] flex items-center justify-center gap-2 group"
             >
-              Create one
+              <span>Initialize Session</span>
+              <Terminal size={18} className="group-hover:translate-x-1 transition-transform" />
             </button>
-          </p>
+          </form>
+
+          <div className="mt-8 pt-6 border-t border-slate-800 text-center">
+            <p className="text-sm text-slate-400">
+              New Developer?{' '}
+              <button
+                onClick={() => navigate('/register')}
+                className="text-blue-400 font-bold hover:text-blue-300 transition-colors"
+              >
+                Create Account
+              </button>
+            </p>
+          </div>
         </div>
+
+        {/* Footer Hint */}
+        <p className="text-center text-slate-600 text-[10px] mt-8 uppercase tracking-[0.2em]">
+          Secure API Playground v1.0.4
+        </p>
       </div>
     </div>
   );

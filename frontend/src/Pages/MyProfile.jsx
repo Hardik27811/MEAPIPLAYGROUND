@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { Logout } from "../services/api";
-
+import { User, Mail, GraduationCap, Layout, LogOut, ArrowLeft } from 'lucide-react';
 
 const Profile = () => {
     const [profile, setProfile] = useState(null);
@@ -20,87 +20,115 @@ const Profile = () => {
         fetchProfile();
     }, []);
 
+    const handleLogout = async () => {
+        try {
+            await Logout();
+            navigate('/login');
+        } catch (err) {
+            console.error("Logout failed", err);
+        }
+    }
+
     if (!profile) return (
-        <div className="flex justify-center items-center min-h-screen">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-indigo-600"></div>
+        <div className="min-h-screen bg-[#0f172a] flex justify-center items-center">
+            <div className="flex flex-col items-center gap-4">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                <p className="text-slate-400 font-mono text-sm animate-pulse">Syncing Profile...</p>
+            </div>
         </div>
     );
-    // console.log(profile);
-    // console.log(profile.User);
-
-    // const handleLogout = ()=>{
-    //     Logout();
-    //     navigate('/login')
-    // }
-    
-    
 
     return (
-        <div className="min-h-screen bg-gray-50 py-12 px-4">
-            <div className="max-w-md mx-auto bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                {/* Header with Back Button */}
-                {/* <div className="p-6 pb-0">
-                    <button 
-                        onClick={() => navigate('/dashboard')}
-                        className="flex items-center text-sm font-medium text-gray-500 hover:text-indigo-600 transition-colors group"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                        </svg>
-                        Back to Dashboard
-                    </button>
-                </div> */}
+        <div className="min-h-screen bg-[#0f172a] py-12 px-4 relative overflow-hidden">
+            {/* Background Glows */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/5 rounded-full blur-[120px]" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-indigo-600/5 rounded-full blur-[120px]" />
+            </div>
 
-                <div className="p-8 pt-4 flex flex-col items-center text-center">
-                    {/* User Avatar */}
-                    <div className="relative mb-4">
-                        <div className="w-24 h-24 bg-gradient-to-tr from-indigo-500 to-purple-500 p-1 rounded-full">
-                            <div className="w-full h-full bg-white rounded-full flex items-center justify-center text-3xl font-bold text-indigo-600">
-                                {profile.User.name.charAt(0).toUpperCase()}
+            <div className="max-w-xl mx-auto relative">
+                {/* Back Button */}
+                <button 
+                    onClick={() => navigate('/')}
+                    className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-8 group"
+                >
+                    <ArrowLeft size={18} className="group-hover:-translate-x-1 transition-transform" />
+                    <span className="text-sm font-bold uppercase tracking-widest">Back to Dashboard</span>
+                </button>
+
+                <div className="bg-slate-900/50 backdrop-blur-xl rounded-3xl border border-slate-800 shadow-2xl overflow-hidden">
+                    {/* Profile Header section */}
+                    <div className="p-8 border-b border-slate-800 flex flex-col items-center text-center">
+                        <div className="relative mb-6">
+                            <div className="w-28 h-28 bg-gradient-to-tr from-blue-600 to-indigo-500 p-1 rounded-3xl rotate-3 shadow-xl shadow-blue-900/20">
+                                <div className="w-full h-full bg-slate-900 rounded-[22px] flex items-center justify-center text-4xl font-black text-white -rotate-3">
+                                    {profile.User.name.charAt(0).toUpperCase()}
+                                </div>
                             </div>
+                            <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 border-4 border-slate-900 rounded-full shadow-lg shadow-green-900/20"></div>
                         </div>
-                        <div className="absolute bottom-1 right-1 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
-                    </div>
-                    
-                    <h2 className="text-2xl font-bold text-gray-800">{profile.User.name}</h2>
-                    <p className="text-gray-500 font-medium mb-8">{profile.User.email}</p>
-                    
-                    {/* Stats Grid */}
-                    {/* <div className="w-full grid grid-cols-3 gap-2 py-6 bg-gray-50 rounded-2xl">
-                        <div className="border-r border-gray-200">
-                            <p className="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Total</p>
-                            <p className="text-xl font-extrabold text-gray-800">{profile.stats.total}</p>
+
+                        <h2 className="text-3xl font-bold text-white mb-1">{profile.User.name}</h2>
+                        <div className="flex items-center gap-2 text-slate-400 bg-slate-800/50 px-3 py-1 rounded-full text-xs font-medium">
+                            <Mail size={14} />
+                            {profile.User.email}
                         </div>
-                        <div className="border-r border-gray-200">
-                            <p className="text-[10px] text-green-500 uppercase tracking-widest font-bold">Done</p>
-                            <p className="text-xl font-extrabold text-gray-800">{profile.stats.completed || 0}</p>
-                        </div>
-                        <div>
-                            <p className="text-[10px] text-yellow-500 uppercase tracking-widest font-bold">Pending</p>
-                            <p className="text-xl font-extrabold text-gray-800">{profile.stats.pending || 0}</p>
-                        </div>
-                    </div> */}
-                    <div className="mb-6">
-                        <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">Education</span>
-                        <p className="text-gray-700 text-lg mt-1 font-medium">{profile?.education}</p>
                     </div>
 
-                    <button 
-                        onClick={() => navigate('/')}
-                        className="mt-8 w-full py-3 bg-gray-900 text-white rounded-xl font-semibold text-sm hover:bg-gray-800 transition-all active:scale-95"
-                    >
-                        Manage My Tasks
-                    </button>
-                    
-                    <button 
-                        onClick={handleLogout}
-                        className="mt-8 w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-800 transition-all active:scale-95"
-                    >
-                       Logout
-                    </button>
+                    {/* Profile Details section */}
+                    <div className="p-8 space-y-8">
+                        {/* Education */}
+                        <div className="group">
+                            <div className="flex items-center gap-3 mb-3">
+                                <GraduationCap size={18} className="text-blue-400" />
+                                <span className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em]">Academic Background</span>
+                            </div>
+                            <p className="text-slate-200 text-lg font-medium pl-7">
+                                {profile?.education || "Not specified"}
+                            </p>
+                        </div>
 
-                   
+                        {/* Skills - If you have them in your profile object */}
+                        {profile?.skills && (
+                            <div>
+                                <div className="flex items-center gap-3 mb-4">
+                                    <Layout size={18} className="text-indigo-400" />
+                                    <span className="text-xs font-bold text-slate-500 uppercase tracking-[0.2em]">Core Competencies</span>
+                                </div>
+                                <div className="flex flex-wrap gap-2 pl-7">
+                                    {profile.skills.map((skill, i) => (
+                                        <span key={i} className="px-3 py-1 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded-lg text-xs font-bold uppercase tracking-wider">
+                                            {skill}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Actions section */}
+                    <div className="p-8 bg-slate-950/30 flex flex-col md:flex-row gap-4">
+                        <button 
+                            onClick={() => navigate('/')}
+                            className="flex-1 py-4 bg-slate-800 hover:bg-slate-700 text-white rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2"
+                        >
+                            <Layout size={18} />
+                            Go to Console
+                        </button>
+                        
+                        <button 
+                            onClick={handleLogout}
+                            className="flex-1 py-4 bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white border border-red-500/20 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2"
+                        >
+                            <LogOut size={18} />
+                            Terminate Session
+                        </button>
+                    </div>
                 </div>
+
+                <p className="text-center text-slate-600 text-[10px] mt-8 uppercase tracking-[0.2em]">
+                    User ID: {profile._id} • Secure Connection Active
+                </p>
             </div>
         </div>
     );
