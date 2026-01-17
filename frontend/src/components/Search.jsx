@@ -23,17 +23,17 @@ const Search = ({ setProjects }) => {
     }
   };
 
-  // Function to handle quick tag clicks
+
   const handleTagClick = (tag) => {
     setSkill(tag);
-    handleSearch(tag); // Immediately trigger search on tag click
+    handleSearch(tag); 
   };
 
   return (
     <div className="max-w-2xl mx-auto my-8 px-4 relative z-10">
       <div className="relative flex flex-col md:flex-row gap-3">
         <div className="relative flex-grow">
-          {/* Magnifying Glass Icon */}
+   
           <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500">
             <SearchIcon size={18} />
           </div>
@@ -57,7 +57,7 @@ const Search = ({ setProjects }) => {
         </button>
       </div>
       
-      {/* Terminal-style Suggestion Tags */}
+  
       <div className="mt-4 flex items-center gap-3 overflow-x-auto pb-2 scrollbar-hide">
         <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest whitespace-nowrap">
           Quick Filters:

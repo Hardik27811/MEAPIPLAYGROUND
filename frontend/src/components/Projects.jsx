@@ -9,7 +9,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const res = await api.get('/getAllProfiles');
-        // Safely accessing projects from the first profile returned
+
         const projectData = res?.data?.profile[0]?.projects || [];
         setProjects(projectData);
       } catch (err) {
@@ -31,7 +31,7 @@ const Projects = () => {
 
   return (
     <div className="py-12 px-4 max-w-6xl mx-auto relative">
-      {/* Section Header */}
+
       <div className="flex items-center justify-between mb-10 border-l-4 border-blue-600 pl-4">
         <div>
           <h2 className="text-3xl font-black text-white tracking-tight">Project Modules</h2>
@@ -56,7 +56,7 @@ const Projects = () => {
               key={i} 
               className="group relative bg-slate-900/40 backdrop-blur-sm rounded-2xl border border-slate-800 p-8 hover:border-blue-500/50 hover:bg-slate-900/60 transition-all duration-300 shadow-xl"
             >
-              {/* Corner Accent */}
+       
               <div className="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
                 <Code2 size={20} className="text-blue-500" />
               </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import api from '../services/api';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, Terminal } from 'lucide-react'; // Optional icons
+import { Lock, Mail, Terminal } from 'lucide-react'; 
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -23,14 +23,14 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f172a] px-4 selection:bg-blue-500/30">
-      {/* Decorative Background Elements */}
+
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-600/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="max-w-md w-full relative">
-        {/* Logo / Branding Area */}
+
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl shadow-xl shadow-blue-900/20 mb-4 transform -rotate-3">
              <span className="text-white font-mono text-2xl font-bold">ME</span>
@@ -39,7 +39,7 @@ const Login = () => {
           <p className="text-slate-400 mt-2 font-medium italic">Authenticate to manage your portfolio</p>
         </div>
 
-        {/* Login Card */}
+
         <div className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 shadow-2xl">
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
@@ -98,7 +98,7 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Footer Hint */}
+
         <p className="text-center text-slate-600 text-[10px] mt-8 uppercase tracking-[0.2em]">
           Secure API Playground v1.0.4
         </p>

@@ -11,13 +11,13 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-blue-500/30">
-      {/* Decorative Background Glows */}
+
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-0 left-[20%] w-[40%] h-[40%] bg-blue-600/5 rounded-full blur-[120px]" />
         <div className="absolute bottom-0 right-[20%] w-[40%] h-[40%] bg-indigo-600/5 rounded-full blur-[120px]" />
       </div>
 
-      {/* Navigation Bar */}
+
       <nav className="sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-xl border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -41,7 +41,7 @@ function Landing() {
 
       <main className="max-w-6xl mx-auto px-4 py-12 space-y-24 relative">
         
-        {/* Search & Hero Section */}
+ 
         <section className="relative pt-8">
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
@@ -58,17 +58,17 @@ function Landing() {
           <Search setProjects={setProjects} />
         </section>
 
-        {/* Profile Card Section */}
+
         <section className="animate-in fade-in slide-in-from-bottom-8 duration-1000">
           <div className="flex items-center gap-6 mb-10">
             <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] whitespace-nowrap">Identity Node</h3>
             <div className="h-px w-full bg-gradient-to-r from-slate-800 to-transparent"></div>
           </div>
-          {/* Ensure your Profile component also uses dark classes! */}
+         
           <Profile />
         </section>
 
-        {/* Projects Result Section */}
+
         <section className="pb-24">
           <div className="flex items-center gap-6 mb-10">
             <h3 className="text-xs font-black text-slate-500 uppercase tracking-[0.3em] whitespace-nowrap">Output Stream</h3>
@@ -78,7 +78,7 @@ function Landing() {
         </section>
       </main>
 
-      {/* Tech Footer */}
+
       <footer className="border-t border-slate-800 bg-[#0b1222] py-12">
         <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2 text-slate-500">

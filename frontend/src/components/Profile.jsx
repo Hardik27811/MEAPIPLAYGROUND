@@ -34,7 +34,7 @@ const Profile = () => {
                     className="max-w-2xl mx-auto bg-slate-900/50 backdrop-blur-xl rounded-3xl border border-slate-800 shadow-2xl overflow-hidden hover:border-slate-700 transition-colors group"
                 >
                     <div className="p-8">
-                        {/* Header Section */}
+                   
                         <div className="flex items-start justify-between mb-8">
                             <div className="flex items-center gap-5">
                                 <div className="w-16 h-16 bg-gradient-to-tr from-blue-600 to-indigo-500 rounded-2xl flex items-center justify-center text-2xl font-black text-white shadow-lg shadow-blue-900/20 transform group-hover:rotate-3 transition-transform">
@@ -55,9 +55,9 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        {/* Info Grid */}
+                  
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                            {/* Left Column: Education & Experience */}
+                   
                             <div className="space-y-6">
                                 <div>
                                     <div className="flex items-center gap-2 mb-2 text-slate-500">
@@ -84,7 +84,7 @@ const Profile = () => {
                                 </div>
                             </div>
 
-                            {/* Right Column: Socials */}
+                        
                             <div>
                                 <div className="flex items-center gap-2 mb-3 text-slate-500">
                                     <Globe size={16} />
@@ -109,7 +109,7 @@ const Profile = () => {
                             </div>
                         </div>
 
-                        {/* Skills Section */}
+               
                         <div className="pt-6 border-t border-slate-800">
                             <div className="flex items-center gap-2 mb-4 text-slate-500">
                                 <Code2 size={16} />

@@ -13,7 +13,7 @@ const Register = () => {
     e.preventDefault();
     try {
       await api.post('/auth/register', { name, email, password });
-      // Suggestion: Redirect to login first to ensure cookie is set fresh on next login
+
       navigate('/login');
     } catch (error) {
       alert(error.response?.data?.message || 'Registration failed');
@@ -22,7 +22,7 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f172a] px-4 selection:bg-blue-500/30">
-      {/* Dynamic Background Blur */}
+ 
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-[-5%] right-[-5%] w-[35%] h-[35%] bg-indigo-600/10 rounded-full blur-[100px]" />
         <div className="absolute bottom-[-5%] left-[-5%] w-[35%] h-[35%] bg-blue-600/10 rounded-full blur-[100px]" />
@@ -39,7 +39,7 @@ const Register = () => {
 
         <div className="bg-slate-900/50 backdrop-blur-xl p-8 rounded-3xl border border-slate-800 shadow-2xl">
           <form onSubmit={handleRegister} className="space-y-5">
-            {/* Full Name Field */}
+ 
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Alias</label>
               <div className="relative group">
@@ -57,7 +57,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Email Field */}
+      
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Identity (Email)</label>
               <div className="relative group">
@@ -75,7 +75,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Password Field */}
+  
             <div>
               <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 ml-1">Secret Key</label>
               <div className="relative group">
