@@ -23,10 +23,8 @@ const Login = () => {
       });
 
       setUser(res.data.user);
-      if(checkAuth){
-        setIsAuthenticated(true);
-        navigate('/');
-      }
+      await checkAuth();
+      navigate("/");
       
 
       
