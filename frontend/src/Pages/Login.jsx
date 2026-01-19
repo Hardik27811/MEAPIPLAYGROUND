@@ -23,9 +23,13 @@ const Login = () => {
       });
 
       setUser(res.data.user);
-      setIsAuthenticated(true);
+      if(checkAuth){
+        setIsAuthenticated(true);
+        navigate('/');
+      }
+      
 
-      navigate('/');
+      
     } catch (error) {
       alert(error.response?.data?.message || 'Login failed');
     }
