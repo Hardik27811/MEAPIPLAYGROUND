@@ -11,16 +11,12 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.VERCEL_URL,
+    origin: process.env.VERCEL_URL ||'http://localhost:5173',
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.options("*", cors({
-  origin: process.env.VERCEL_URL,
-  credentials: true
-}));
 
 app.use(express.json());
 
