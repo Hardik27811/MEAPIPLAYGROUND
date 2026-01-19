@@ -10,7 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { checkAuth } = useAuth();
 
- const { setUser, setIsAuthenticated } = useAuth();
+//  const { setUser, setIsAuthenticated } = useAuth();
 
 
   const handleLogin = async (e) => {
@@ -22,7 +22,7 @@ const Login = () => {
         password,
       });
 
-      setUser(res.data.user);
+      // setUser(res.data.user);
       await checkAuth();
       navigate("/");
       
