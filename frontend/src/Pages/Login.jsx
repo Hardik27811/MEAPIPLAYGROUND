@@ -10,16 +10,28 @@ const Login = () => {
   const navigate = useNavigate();
   const { checkAuth } = useAuth();
 
+ const { setUser, setIsAuthenticated } = useAuth();
+
+
   const handleLogin = async (e) => {
     e.preventDefault();
+
     try {
-      await api.post('/auth/login', { email, password });
-      await checkAuth();
+      const res = await api.post('/auth/login', {
+        email,
+        password,
+      });
+
+      setUser(res.data.user);
+      setIsAuthenticated(true);
+
       navigate('/');
     } catch (error) {
       alert(error.response?.data?.message || 'Login failed');
     }
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#0f172a] px-4 selection:bg-blue-500/30">

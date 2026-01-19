@@ -2,10 +2,13 @@ import axios from 'axios';
 
 const api = axios.create({
     baseURL: 'https://meapiplayground-sfc7.onrender.com',
-    withCredentials: true, 
+    withCredentials: true,
 });
 
-
+// export const login = async (data) => {
+//     const res = await api.post('/auth/login', data);
+//     return res.data;
+// };
 
 export const getProfile = async () => {
     const res = await api.get('/getAllProfiles');
@@ -22,11 +25,9 @@ export const searchProfile = async (query) => {
     return res.data;
 };
 
-export const Logout = async ()=>{
+export const Logout = async () => {
     const res = await api.post('/auth/logout');
     return res.data;
-}
-
-
+};
 
 export default api;
